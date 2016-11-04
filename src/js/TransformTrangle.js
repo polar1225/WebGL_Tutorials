@@ -119,15 +119,24 @@ function initVertexBuffers(gl){
         console.log("Faild to get the storage location of Shader Attribute");
         return -1;
     }
-    //WebGL为列主序
-    var xformMatrix = new Float32Array(
-        [
-            1,  0,  0,  0,
-            0,  1,  0,  0,
-            0,  0,  1,  0,
-            0.2,0,  0,  1
-        ]);
-    gl.uniformMatrix4fv(u_ModelMatrix,false,xformMatrix);
+
+    //var transX = 0.2;
+    //var transY = 0.2;
+    //var transZ = 0;
+    ////WebGL为列主序
+    //var xformMatrix = new Float32Array(
+    //    [
+    //        1,  0,  0,  0,
+    //        0,  1,  0,  0,
+    //        0,  0,  1,  0,
+    //        transX,transY,  transZ,  1
+    //    ]);
+    //gl.uniformMatrix4fv(u_ModelMatrix,false,xformMatrix);
+
+    var xformMatrix = new Matrix4();
+    xformMatrix.setRotate(20,0,0,1);
+    xformMatrix.translate(0.2,0.2,0);
+    gl.uniformMatrix4fv(u_ModelMatrix,false,xformMatrix.elements);
 
     return n;
 }
