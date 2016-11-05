@@ -7,7 +7,7 @@ var FRG_SHADER_SOURCE = null;
 
 var g_previousTime = 0;
 var g_deltaTime = 0;
-
+var g_RotateSpeed = 1 / 3.0;
 function main(){
     var canvas = document.getElementById("webgl");
     if(!canvas){
@@ -85,9 +85,12 @@ function onLoadShader(gl,fileString,type){
 //设置顶点缓冲区
 function initVertexBuffers(gl){
     var vertices = new Float32Array(
-        [   0.0,    0.5,     1.0,0.0,0.0,1.0,
-            -0.5,   -0.5,    0.0,1.0,0.0,1.0,
-            0.5,    -0.5,    0.0,0.0,1.0,1.0]
+        [
+            -0.5,    0.5,     1.0,0.0,0.0,1.0,
+            0.5,     0.5,    0.0,1.0,0.0,1.0,
+            -0.5,    -0.5,    0.0,0.0,1.0,1.0,
+            0.5,    -0.5,    1.0,0.0,1.0,1.0,
+        ]
     );
 
     var n = 3;  // 点的个数
@@ -142,8 +145,8 @@ function updateTimer(){
 }
 
 function updateRotation(angle,modelMatrix){
-    var rotateSpeed = 1 / 3.0;
-    var currentAngle = angle + g_deltaTime * rotateSpeed;
+
+    var currentAngle = angle + g_deltaTime * g_RotateSpeed;
     modelMatrix.setRotate(currentAngle,0,0,1);
     return currentAngle;
 }
@@ -157,4 +160,11 @@ function draw(gl,n,modelMatrix,u_ModelMatrix){
     gl.drawArrays(gl.TRIANGLES,0,n);
 }
 
+function onSpeedUp(){
+    g_RotateSpeed *= 1.5;
+}
+
+function onSpeedDown(){
+    g_RotateSpeed /= 1.5;
+}
 
