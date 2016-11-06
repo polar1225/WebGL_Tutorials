@@ -40,8 +40,8 @@ function start(gl){
     }
 
     var u_ModelMatrix = gl.getUniformLocation(gl.program,"u_ModelMatrix");
-    if(u_ModelMatrix < 0){
-        console.log("Faild to get the storage location of Shader Attribute");
+    if(!u_ModelMatrix){
+        console.log("Faild to get the storage location of Shader Uniform Param");
         return -1;
     }
 
