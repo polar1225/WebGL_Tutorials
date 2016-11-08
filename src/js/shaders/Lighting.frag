@@ -4,6 +4,7 @@ varying vec2 v_Texcoord;
 varying vec3 v_Normal;
 varying vec3 v_Position;
 
+uniform vec4 u_AmbientColor;
 uniform vec3 u_LightPos;
 uniform vec4 u_LightColor;
 uniform vec4 u_SpecColor;
@@ -28,7 +29,7 @@ void main() {
 	float spec = pow(nh,u_Specular * 128.0) * u_Gloss;
 
 	vec4 c;
-	c.rgb = albedo.rgb * u_LightColor.rgb * diff + u_LightColor.rgb * u_SpecColor.rgb * spec;
+	c.rgb = albedo.rgb * (u_AmbientColor.rgb + u_LightColor.rgb * diff) + u_LightColor.rgb * u_SpecColor.rgb * spec;
 	c.a = 1.0;
 	gl_FragColor = c;
 }

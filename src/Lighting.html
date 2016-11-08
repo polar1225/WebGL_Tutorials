@@ -5,9 +5,11 @@
     <title>Blinn Phong Lighting</title>
 </head>
 <body onload="main()">
-<canvas id="webgl" width="400" height="400">
+<canvas id="webgl" width="400" height="400" style="position: absolute;z-index: 0">
     Please a broswer that support "canvas"
 </canvas>
+
+<canvas id="info" width="400" height="800" style="position: absolute;z-index: -1"></canvas>
 
 
 <script src="js/lib/webgl-debug.js"></script>
@@ -15,5 +17,14 @@
 <script src="js/lib/cuon-utils.js"></script>
 <script src="js/lib/cuon-matrix.js"></script>
 <script src="js/Lighting.js"></script>
+
+<script>
+    var canvas = document.getElementById("info");
+
+    var ctx = canvas.getContext("2d");
+    ctx.font = 'italic 2em "Open Sans", sans-serif';
+    ctx.fillStyle = "rgba(255,0,0,1)";
+    ctx.fillText("Blinn Phong Lighting",10,30);
+</script>
 </body>
 </html>

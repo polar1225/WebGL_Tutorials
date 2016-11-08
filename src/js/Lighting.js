@@ -79,7 +79,7 @@ function start(gl){
         return -1;
     }
 
-    gl.clearColor(0.0,0.0,0.0,1.0);
+    gl.clearColor(0.0,0.0,0.0,0.3);
 
     //世界变换
     var currentAngle = 0;
@@ -107,6 +107,9 @@ function start(gl){
     var u_LightPos = gl.getUniformLocation(gl.program,"u_LightPos");
     gl.uniform3f(u_LightPos,3.0,3.0,3.0);
 
+    var u_AmbientColor = gl.getUniformLocation(gl.program,"u_AmbientColor");
+    gl.uniform4f(u_AmbientColor,0.2,0.2,0.2,1.0);
+
     var u_LightColor = gl.getUniformLocation(gl.program,"u_LightColor");
     gl.uniform4f(u_LightColor,1,1,1,1.0);
 
@@ -126,8 +129,17 @@ function start(gl){
     document.onkeydown = function (ev) {
         keydown(ev,viewMatrix);
     }
+
+    //鼠标逻辑
+    var currentAngle = [0.0,0.0];
+    initEventHandlers(g_canvas,currentAngle);
+
+
     var tick = function () {
         updateTimer();
+        modelMatrix.setIdentity();
+        modelMatrix.rotate(currentAngle[0],1.0,0.0,0.0);
+        modelMatrix.rotate(currentAngle[1],0.0,1.0,0.0);
         updateLightPos(gl,u_LightPos);
         mvpMatrix.set(projMatrix).multiply(viewMatrix).multiply(modelMatrix);
         draw(gl,n,mvpMatrix,u_MVPMatrix,modelMatrix,u_ModelMatrix,normalMatrix,u_NormalMatrix);
@@ -138,6 +150,44 @@ function start(gl){
 
 function updateLightPos(gl,u_LightPos){
     gl.uniform3f(u_LightPos,3 * Math.cos(g_previousTime * Math.PI / 1000.0),3,3 * Math.sin(g_previousTime * Math.PI / 1000.0));
+}
+
+
+function initEventHandlers(canvas,currentAngle){
+    var dragging = false;
+    var lastX = -1,lastY = -1;
+
+    //按下鼠标
+    canvas.onmousedown = function(ev){
+        var x = ev.x, y = ev.y;
+
+        var rect = ev.target.getBoundingClientRect();
+        if(rect.left <= x && rect.right > x && rect.top <= y && rect.bottom > y){
+            lastX = x;
+            lastY = y;
+            dragging = true;
+        }
+    }
+
+    canvas.onmouseup = function (ev) {
+        dragging = false;
+    }
+    canvas.onmousemove = function (ev) {
+        var x = ev.x;
+        var y = ev.y;
+        if(dragging){
+            var factor = 100 / canvas.height;
+            var dx = factor * ( x - lastX);
+            var dy = factor * ( y - lastY);
+
+            currentAngle[0] += dy;
+            currentAngle[1] += dx;
+        }
+
+        lastX = x;
+        lastY = y;
+    }
+
 }
 
 function keydown(ev,viewMatrix){
