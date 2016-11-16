@@ -91,4 +91,18 @@ var Clock = (function () {
     };
     return Clock;
 })();
+var BaseClass = (function () {
+    function BaseClass(n) {
+        this.name = n;
+    }
+    BaseClass.prototype.sayHello = function () {
+        console.log("This is " + this.name + ", Hello!");
+    };
+    return BaseClass;
+})();
+var c = new BaseClass("Jim");
+c.sayHello();
+var myAdd = function (x, y) {
+    return x + y;
+};
 //# sourceMappingURL=HelloWorld.js.map

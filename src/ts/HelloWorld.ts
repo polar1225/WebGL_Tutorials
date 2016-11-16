@@ -130,3 +130,19 @@ class Clock implements ClockInterface{
         this.current = d;
     }
 }
+
+class BaseClass{
+    name:string;
+    constructor(n:string){
+        this.name = n;
+    }
+    sayHello(){
+        console.log("This is " + this.name + ", Hello!");
+    }
+}
+let c:BaseClass = new BaseClass("Jim");
+c.sayHello();
+
+let myAdd = function (x:number,y:number) {
+    return x+y;
+}
