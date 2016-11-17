@@ -4,10 +4,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+    switch (arguments.length) {
+        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+    }
 };
 var BABYLON;
 (function (BABYLON) {
@@ -16,14 +18,14 @@ var BABYLON;
         function FreeCamera(name, position, scene) {
             var _this = this;
             _super.call(this, name, position, scene);
-            this.ellipsoid = new BABYLON.Vector3(0.5, 1, 0.5);
+            this.ellipsoid = new Vector3(0.5, 1, 0.5);
             this.checkCollisions = false;
             this.applyGravity = false;
-            this._collider = new BABYLON.Collider();
+            this._collider = new Collider();
             this._needMoveForGravity = false;
-            this._oldPosition = BABYLON.Vector3.Zero();
-            this._diffPosition = BABYLON.Vector3.Zero();
-            this._newPosition = BABYLON.Vector3.Zero();
+            this._oldPosition = Vector3.Zero();
+            this._diffPosition = Vector3.Zero();
+            this._newPosition = Vector3.Zero();
             this._onCollisionPositionChange = function (collisionId, newPosition, collidedMesh) {
                 if (collidedMesh === void 0) { collidedMesh = null; }
                 //TODO move this to the collision coordinator!
@@ -33,7 +35,7 @@ var BABYLON;
                     _this._newPosition.copyFrom(newPos);
                     _this._newPosition.subtractToRef(_this._oldPosition, _this._diffPosition);
                     var oldPosition = _this.position.clone();
-                    if (_this._diffPosition.length() > BABYLON.Engine.CollisionsEpsilon) {
+                    if (_this._diffPosition.length() > Engine.CollisionsEpsilon) {
                         _this.position.addInPlace(_this._diffPosition);
                         if (_this.onCollide && collidedMesh) {
                             _this.onCollide(collidedMesh);
@@ -42,7 +44,7 @@ var BABYLON;
                 };
                 updatePosition(newPosition);
             };
-            this.inputs = new BABYLON.FreeCameraInputsManager(this);
+            this.inputs = new FreeCameraInputsManager(this);
             this.inputs.addKeyboard().addMouse();
         }
         Object.defineProperty(FreeCamera.prototype, "angularSensibility", {
@@ -122,13 +124,13 @@ var BABYLON;
         };
         FreeCamera.prototype.detachControl = function (element) {
             this.inputs.detachElement(element);
-            this.cameraDirection = new BABYLON.Vector3(0, 0, 0);
-            this.cameraRotation = new BABYLON.Vector2(0, 0);
+            this.cameraDirection = new Vector3(0, 0, 0);
+            this.cameraRotation = new Vector2(0, 0);
         };
         FreeCamera.prototype._collideWithWorld = function (velocity) {
             var globalPosition;
             if (this.parent) {
-                globalPosition = BABYLON.Vector3.TransformCoordinates(this.position, this.parent.getWorldMatrix());
+                globalPosition = Vector3.TransformCoordinates(this.position, this.parent.getWorldMatrix());
             }
             else {
                 globalPosition = this.position;
@@ -146,8 +148,8 @@ var BABYLON;
         };
         FreeCamera.prototype._checkInputs = function () {
             if (!this._localDirection) {
-                this._localDirection = BABYLON.Vector3.Zero();
-                this._transformedDirection = BABYLON.Vector3.Zero();
+                this._localDirection = Vector3.Zero();
+                this._transformedDirection = Vector3.Zero();
             }
             this.inputs.checkInputs();
             _super.prototype._checkInputs.call(this);
@@ -171,15 +173,16 @@ var BABYLON;
             return "FreeCamera";
         };
         __decorate([
-            BABYLON.serializeAsVector3()
-        ], FreeCamera.prototype, "ellipsoid", void 0);
+            serializeAsVector3()
+        ], FreeCamera.prototype, "ellipsoid");
         __decorate([
-            BABYLON.serialize()
-        ], FreeCamera.prototype, "checkCollisions", void 0);
+            serialize()
+        ], FreeCamera.prototype, "checkCollisions");
         __decorate([
-            BABYLON.serialize()
-        ], FreeCamera.prototype, "applyGravity", void 0);
+            serialize()
+        ], FreeCamera.prototype, "applyGravity");
         return FreeCamera;
-    }(BABYLON.TargetCamera));
+    })(TargetCamera);
     BABYLON.FreeCamera = FreeCamera;
 })(BABYLON || (BABYLON = {}));
+//# sourceMappingURL=babylon.freeCamera.js.map

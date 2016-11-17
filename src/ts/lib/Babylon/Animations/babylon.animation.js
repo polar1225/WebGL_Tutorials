@@ -10,7 +10,7 @@ var BABYLON;
             return new AnimationRange(this.name, this.from, this.to);
         };
         return AnimationRange;
-    }());
+    })();
     BABYLON.AnimationRange = AnimationRange;
     /**
      * Composed of a frame, and an action function
@@ -23,7 +23,7 @@ var BABYLON;
             this.isDone = false;
         }
         return AnimationEvent;
-    }());
+    })();
     BABYLON.AnimationEvent = AnimationEvent;
     var PathCursor = (function () {
         function PathCursor(path) {
@@ -34,7 +34,7 @@ var BABYLON;
         }
         PathCursor.prototype.getPoint = function () {
             var point = this.path.getPointAtLengthPosition(this.value);
-            return new BABYLON.Vector3(point.x, 0, point.y);
+            return new Vector3(point.x, 0, point.y);
         };
         PathCursor.prototype.moveAhead = function (step) {
             if (step === void 0) { step = 0.002; }
@@ -80,7 +80,7 @@ var BABYLON;
             return this;
         };
         return PathCursor;
-    }());
+    })();
     BABYLON.PathCursor = PathCursor;
     var Animation = (function () {
         function Animation(name, targetProperty, framePerSecond, dataType, loopMode, enableBlending) {
@@ -108,19 +108,19 @@ var BABYLON;
             if (!isNaN(parseFloat(from)) && isFinite(from)) {
                 dataType = Animation.ANIMATIONTYPE_FLOAT;
             }
-            else if (from instanceof BABYLON.Quaternion) {
+            else if (from instanceof Quaternion) {
                 dataType = Animation.ANIMATIONTYPE_QUATERNION;
             }
-            else if (from instanceof BABYLON.Vector3) {
+            else if (from instanceof Vector3) {
                 dataType = Animation.ANIMATIONTYPE_VECTOR3;
             }
-            else if (from instanceof BABYLON.Vector2) {
+            else if (from instanceof Vector2) {
                 dataType = Animation.ANIMATIONTYPE_VECTOR2;
             }
-            else if (from instanceof BABYLON.Color3) {
+            else if (from instanceof Color3) {
                 dataType = Animation.ANIMATIONTYPE_COLOR3;
             }
-            else if (from instanceof BABYLON.Size) {
+            else if (from instanceof Size) {
                 dataType = Animation.ANIMATIONTYPE_SIZE;
             }
             if (dataType == undefined) {
@@ -241,22 +241,22 @@ var BABYLON;
             return startValue + (endValue - startValue) * gradient;
         };
         Animation.prototype.quaternionInterpolateFunction = function (startValue, endValue, gradient) {
-            return BABYLON.Quaternion.Slerp(startValue, endValue, gradient);
+            return Quaternion.Slerp(startValue, endValue, gradient);
         };
         Animation.prototype.vector3InterpolateFunction = function (startValue, endValue, gradient) {
-            return BABYLON.Vector3.Lerp(startValue, endValue, gradient);
+            return Vector3.Lerp(startValue, endValue, gradient);
         };
         Animation.prototype.vector2InterpolateFunction = function (startValue, endValue, gradient) {
-            return BABYLON.Vector2.Lerp(startValue, endValue, gradient);
+            return Vector2.Lerp(startValue, endValue, gradient);
         };
         Animation.prototype.sizeInterpolateFunction = function (startValue, endValue, gradient) {
-            return BABYLON.Size.Lerp(startValue, endValue, gradient);
+            return Size.Lerp(startValue, endValue, gradient);
         };
         Animation.prototype.color3InterpolateFunction = function (startValue, endValue, gradient) {
-            return BABYLON.Color3.Lerp(startValue, endValue, gradient);
+            return Color3.Lerp(startValue, endValue, gradient);
         };
         Animation.prototype.matrixInterpolateFunction = function (startValue, endValue, gradient) {
-            return BABYLON.Matrix.Lerp(startValue, endValue, gradient);
+            return Matrix.Lerp(startValue, endValue, gradient);
         };
         Animation.prototype.clone = function () {
             var clone = new Animation(this.name, this.targetPropertyPath.join("."), this.framePerSecond, this.dataType, this.loopMode);
@@ -419,7 +419,7 @@ var BABYLON;
                     }
                 }
                 else if (this._originalBlendValue.m) {
-                    destination[path] = BABYLON.Matrix.Lerp(this._originalBlendValue, currentValue, this._blendingFactor);
+                    destination[path] = Matrix.Lerp(this._originalBlendValue, currentValue, this._blendingFactor);
                 }
                 else {
                     destination[path] = this._originalBlendValue * (1.0 - this._blendingFactor) + this._blendingFactor * currentValue;
@@ -517,23 +517,23 @@ var BABYLON;
                         break;
                     // Quaternion
                     case Animation.ANIMATIONTYPE_QUATERNION:
-                        offsetValue = new BABYLON.Quaternion(0, 0, 0, 0);
+                        offsetValue = new Quaternion(0, 0, 0, 0);
                         break;
                     // Vector3
                     case Animation.ANIMATIONTYPE_VECTOR3:
-                        offsetValue = BABYLON.Vector3.Zero();
+                        offsetValue = Vector3.Zero();
                         break;
                     // Vector2
                     case Animation.ANIMATIONTYPE_VECTOR2:
-                        offsetValue = BABYLON.Vector2.Zero();
+                        offsetValue = Vector2.Zero();
                         break;
                     // Size
                     case Animation.ANIMATIONTYPE_SIZE:
-                        offsetValue = BABYLON.Size.Zero();
+                        offsetValue = Size.Zero();
                         break;
                     // Color3
                     case Animation.ANIMATIONTYPE_COLOR3:
-                        offsetValue = BABYLON.Color3.Black();
+                        offsetValue = Color3.Black();
                 }
             }
             // Compute value
@@ -686,17 +686,17 @@ var BABYLON;
                         data = key.values[0];
                         break;
                     case Animation.ANIMATIONTYPE_QUATERNION:
-                        data = BABYLON.Quaternion.FromArray(key.values);
+                        data = Quaternion.FromArray(key.values);
                         break;
                     case Animation.ANIMATIONTYPE_MATRIX:
-                        data = BABYLON.Matrix.FromArray(key.values);
+                        data = Matrix.FromArray(key.values);
                         break;
                     case Animation.ANIMATIONTYPE_COLOR3:
-                        data = BABYLON.Color3.FromArray(key.values);
+                        data = Color3.FromArray(key.values);
                         break;
                     case Animation.ANIMATIONTYPE_VECTOR3:
                     default:
-                        data = BABYLON.Vector3.FromArray(key.values);
+                        data = Vector3.FromArray(key.values);
                         break;
                 }
                 keys.push({
@@ -734,6 +734,7 @@ var BABYLON;
         Animation._ANIMATIONLOOPMODE_CYCLE = 1;
         Animation._ANIMATIONLOOPMODE_CONSTANT = 2;
         return Animation;
-    }());
+    })();
     BABYLON.Animation = Animation;
 })(BABYLON || (BABYLON = {}));
+//# sourceMappingURL=babylon.animation.js.map

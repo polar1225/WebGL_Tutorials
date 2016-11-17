@@ -50,7 +50,7 @@ var BABYLON;
             return new ActionEvent(prim, pointerPos.x, pointerPos.y, null, evt, additionalData);
         };
         return ActionEvent;
-    }());
+    })();
     BABYLON.ActionEvent = ActionEvent;
     /**
      * Action Manager manages all events to be triggered on a given mesh or the global scene.
@@ -257,7 +257,7 @@ var BABYLON;
         ActionManager.prototype.registerAction = function (action) {
             if (action.trigger === ActionManager.OnEveryFrameTrigger) {
                 if (this.getScene().actionManager !== this) {
-                    BABYLON.Tools.Warn("OnEveryFrameTrigger can only be used with scene.actionManager");
+                    Tools.Warn("OnEveryFrameTrigger can only be used with scene.actionManager");
                     return null;
                 }
             }
@@ -317,8 +317,8 @@ var BABYLON;
                 };
                 var triggerOptions = this.actions[i].triggerOptions;
                 if (triggerOptions && typeof triggerOptions !== "number") {
-                    if (triggerOptions.parameter instanceof BABYLON.Node) {
-                        triggerObject.properties.push(BABYLON.Action._GetTargetProperty(triggerOptions.parameter));
+                    if (triggerOptions.parameter instanceof Node) {
+                        triggerObject.properties.push(Action._GetTargetProperty(triggerOptions.parameter));
                     }
                     else {
                         triggerObject.properties.push({ name: "parameter", targetType: null, value: triggerOptions.parameter });
@@ -367,14 +367,14 @@ var BABYLON;
                 var split = new Array();
                 for (var i = 0; i < values.length; i++)
                     split.push(parseFloat(values[i]));
-                if (target instanceof BABYLON.Vector3)
-                    return BABYLON.Vector3.FromArray(split);
-                if (target instanceof BABYLON.Vector4)
-                    return BABYLON.Vector4.FromArray(split);
-                if (target instanceof BABYLON.Color3)
-                    return BABYLON.Color3.FromArray(split);
-                if (target instanceof BABYLON.Color4)
-                    return BABYLON.Color4.FromArray(split);
+                if (target instanceof Vector3)
+                    return Vector3.FromArray(split);
+                if (target instanceof Vector4)
+                    return Vector4.FromArray(split);
+                if (target instanceof Color3)
+                    return Color3.FromArray(split);
+                if (target instanceof Color4)
+                    return Color4.FromArray(split);
                 return parseFloat(values[0]);
             };
             // traverse graph per trigger
@@ -414,7 +414,7 @@ var BABYLON;
                             value = scene.getSoundByName(value);
                         else if (name !== "propertyPath") {
                             if (parsedAction.type === 2 && name === "operator")
-                                value = BABYLON.ValueCondition[value];
+                                value = ValueCondition[value];
                             else
                                 value = parseParameter(name, value, target, name === "value" ? propertyPath : null);
                         }
@@ -438,8 +438,8 @@ var BABYLON;
                 }
                 // Action or condition(s) and not CombineAction
                 var newAction = instanciate(parsedAction.name, parameters);
-                if (newAction instanceof BABYLON.Condition && condition !== null) {
-                    var nothing = new BABYLON.DoNothingAction(trigger, condition);
+                if (newAction instanceof Condition && condition !== null) {
+                    var nothing = new DoNothingAction(trigger, condition);
                     if (action)
                         action.then(nothing);
                     else
@@ -447,7 +447,7 @@ var BABYLON;
                     action = nothing;
                 }
                 if (combineArray === null) {
-                    if (newAction instanceof BABYLON.Condition) {
+                    if (newAction instanceof Condition) {
                         condition = newAction;
                         newAction = action;
                     }
@@ -523,6 +523,7 @@ var BABYLON;
         ActionManager.DragMovementThreshold = 10; // in pixels
         ActionManager.LongPressDelay = 500; // in milliseconds
         return ActionManager;
-    }());
+    })();
     BABYLON.ActionManager = ActionManager;
 })(BABYLON || (BABYLON = {}));
+//# sourceMappingURL=babylon.actionManager.js.map

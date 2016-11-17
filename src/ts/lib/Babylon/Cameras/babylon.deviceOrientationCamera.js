@@ -10,7 +10,7 @@ var BABYLON;
         __extends(DeviceOrientationCamera, _super);
         function DeviceOrientationCamera(name, position, scene) {
             _super.call(this, name, position, scene);
-            this._quaternionCache = new BABYLON.Quaternion();
+            this._quaternionCache = new Quaternion();
             this.inputs.addDeviceOrientation();
         }
         DeviceOrientationCamera.prototype.getTypeName = function () {
@@ -25,12 +25,12 @@ var BABYLON;
         };
         DeviceOrientationCamera.prototype.resetToCurrentRotation = function (axis) {
             var _this = this;
-            if (axis === void 0) { axis = BABYLON.Axis.Y; }
+            if (axis === void 0) { axis = Axis.Y; }
             //can only work if this camera has a rotation quaternion already.
             if (!this.rotationQuaternion)
                 return;
             if (!this._initialQuaternion) {
-                this._initialQuaternion = new BABYLON.Quaternion();
+                this._initialQuaternion = new Quaternion();
             }
             this._initialQuaternion.copyFrom(this._quaternionCache || this.rotationQuaternion);
             ['x', 'y', 'z'].forEach(function (axisName) {
@@ -46,6 +46,7 @@ var BABYLON;
             this._initialQuaternion.multiplyToRef(this.rotationQuaternion, this.rotationQuaternion);
         };
         return DeviceOrientationCamera;
-    }(BABYLON.FreeCamera));
+    })(FreeCamera);
     BABYLON.DeviceOrientationCamera = DeviceOrientationCamera;
 })(BABYLON || (BABYLON = {}));
+//# sourceMappingURL=babylon.deviceOrientationCamera.js.map
