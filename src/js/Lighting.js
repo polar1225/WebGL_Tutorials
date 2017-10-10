@@ -38,7 +38,7 @@ function loadImage(gl){
         loadShaders(gl);
     }
     //开始加载图像
-    IMAGE_RESOURCE.src = "resources/wood.jpg";
+    IMAGE_RESOURCE.src = "resources/textures/wood.jpg";
 }
 
 function loadShaders(gl){
