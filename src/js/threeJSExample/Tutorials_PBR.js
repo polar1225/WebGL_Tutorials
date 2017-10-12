@@ -122,7 +122,9 @@ function animate(){
 
 function render(){
     renderer.toneMappingExposure = params.exposure;
-    pbrMat.metalness = params.metalness;
-    pbrMat.roughness = params.roughness;
+    if(pbrMat){
+        pbrMat.metalness = params.metalness;
+        pbrMat.roughness = params.roughness;
+    }
     renderer.render(scene,camera);
 }
