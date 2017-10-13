@@ -4,6 +4,7 @@
 var scene,camera,renderer;
 var clock;
 var object;
+var object2;
 init();
 animate();
 
@@ -22,6 +23,10 @@ function init(){
     var material = new THREE.MeshBasicMaterial();
     object = new THREE.Mesh(geomery,material);
     scene.add(object);
+
+    object2 = new THREE.Mesh(geomery,material);
+    scene.add(object2);
+    object2.matrixAutoUpdate = false;
 
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -47,10 +52,16 @@ function animate(){
 function render(){
     var delta = clock.getDelta();
     var time = clock.getElapsedTime();
-    var quaternion = object.quaternion;
+
+    //object.matrixAutoUpdate = true,实际的world matrix会从position,rotation,scale重新计算
+    object.position.y = 2 * Math.sin(time);
     var rotQuat = new THREE.Quaternion();
     rotQuat.setFromAxisAngle(new THREE.Vector3(0,1,0),delta);
-    object.setRotationFromQuaternion(quaternion.multiply(rotQuat));
-    object.position.y = 2 * Math.sin(time);
+    object.quaternion.multiply(rotQuat);
+    var scale = 2 * Math.abs(Math.sin(time));
+    object.scale.x = object.scale.y = object.scale.z = scale;
+
+
+    object2.matrix.setPosition(new THREE.Vector3(2 * Math.sin(time),0,0));
     renderer.render(scene,camera);
 }
